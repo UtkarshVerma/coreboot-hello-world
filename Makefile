@@ -48,7 +48,7 @@ CC := $(CC_$(ARCH-y))
 AS := $(AS_$(ARCH-y))
 XCC := CC="$(CC)" $(LIBPAYLOAD_DIR)/bin/lpgcc
 XAS := AS="$(AS)" $(LIBPAYLOAD_DIR)/bin/lpas
-CFLAGS := -fno-builtin -Wall -Werror -Os -I$(INC_DIR)
+CFLAGS := -g -fno-builtin -Wall -Werror -Os -I$(INC_DIR)
 
 VPATH := $(SRC_DIR)
 SRCS := $(wildcard $(SRC_DIR)/*.c)
@@ -61,9 +61,6 @@ $(BUILD_DIR)/$(TARGET).elf: $(OBJS)
 
 $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
 	$(XCC) $(CFLAGS) -c -o $@ $<
-
-$(BUILD_DIR)/%.S.o: %.S
-	$(XAS) --32 -o $@ $<
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
